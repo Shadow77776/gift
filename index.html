@@ -21,7 +21,7 @@
             direction: rtl;
         }
 
-        /* Animated Lights */
+        /* Festive Lights */
         .lights {
             position: fixed; top: 10px; width: 100%;
             display: flex; justify-content: space-around; z-index: 20;
@@ -54,9 +54,16 @@
             cursor: pointer; margin-top: 15px;
         }
 
+        .red-round-btn {
+            background: #ff3b3b; color: white; border: none;
+            padding: 15px 40px; border-radius: 50px;
+            font-size: 1.2rem; cursor: pointer; margin-top: 20px;
+            box-shadow: 0 0 15px rgba(255, 59, 59, 0.6);
+        }
+
         .hidden { display: none; }
 
-        .letter-text { color: #5e0000; font-size: 1.1rem; line-height: 1.8; font-weight: bold; }
+        .letter-text { color: #5e0000; font-size: 1.1rem; line-height: 1.8; font-weight: bold; white-space: pre-line; }
 
         .memory-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 10px; }
         .memory-card img { width: 100%; border-radius: 15px; }
@@ -99,13 +106,18 @@
             لاننا مع بعض وانا داخل السنه وانا معايا
             اغلي واكتر حد بحبه
             بحبك
+            تعالي نشوف كام ميموري كده مع بعض
         </div>
         <button class="btn" onclick="showMemories()">✨ start journey</button>
     </div>
 
     <div id="memories-feed" class="hidden">
         <div id="photos-container"></div>
-        <button class="btn" onclick="showFinalMessage()">في حاجة مهمة عايز أقولهالك 👇</button>
+        
+        <div class="card" style="background: transparent; box-shadow: none;">
+            <p style="color: white; font-size: 1.2rem;">✨ في حاجة مهمة عايز أقولهالك ✨</p>
+            <button class="red-round-btn" onclick="showFinalMessage()"> ❤️ دوس هنا ❤️ </button>
+        </div>
     </div>
 
     <div id="final-card" class="card hidden">
@@ -128,7 +140,8 @@
         password: "love",
         memories: [
             { image: "photo1.jpg", text: "حبيبتي ❤️" },
-            { image: "photo2.jpg", text: "ربنا يخليكي ليا" }
+            { image: "photo2.jpg", text: "ربنا يخليكي ليا" },
+            { image: "photo3.jpg", text: "أجمل ذكرياتنا" }
         ]
     };
 
@@ -156,6 +169,7 @@
     function showFinalMessage() {
         document.getElementById('memories-feed').classList.add('hidden');
         document.getElementById('final-card').classList.remove('hidden');
+        window.scrollTo(0, 0);
     }
 
     function toggleMusic() {
