@@ -13,6 +13,7 @@
             color: #333; display: flex; justify-content: center;
             min-height: 100vh; overflow-x: hidden; direction: rtl;
         }
+        /* Festive Lights at the top */
         .lights {
             position: fixed; top: 10px; width: 100%;
             display: flex; justify-content: space-around; z-index: 20;
@@ -31,6 +32,11 @@
         }
         @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
+        .year-badge {
+            background: #d4a373; color: white; padding: 5px 25px;
+            border-radius: 50px; display: inline-block; font-size: 1.2rem; margin-bottom: 10px;
+        }
+
         .btn {
             background: linear-gradient(to right, #b3000c, #7a0000);
             color: white; border: none; padding: 12px; border-radius: 50px;
@@ -45,6 +51,8 @@
         .letter-text { color: #5e0000; font-size: 1.15rem; line-height: 1.8; font-weight: bold; white-space: pre-line; }
         .memory-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 10px; }
         .memory-card img { width: 100%; border-radius: 15px; }
+
+        .footer-text { color: white; font-size: 0.9rem; margin-top: 20px; opacity: 0.8; }
 
         #music-btn {
             position: fixed; bottom: 20px; left: 20px; background: white;
@@ -69,19 +77,25 @@
 
 <div class="container">
     <div id="login-page" class="card">
-        <h2 style="color:var(--primary-red); font-family: 'Dancing Script';">Christmas 2026</h2>
-        <input type="password" id="pass" placeholder="Password">
-        <button class="btn" onclick="checkPass()">🔓 Unlock</button>
+        <div class="year-badge">2026</div>
+        <div style="font-size: 50px; margin: 10px 0;">🎄</div>
+        <h1 style="color:var(--primary-red); font-family: 'Dancing Script'; margin: 0;">Christmas</h1>
+        <p style="color: #666; margin: 5px 0;">enter password</p>
+        <input type="password" id="pass" placeholder="Password" style="width: 85%; padding: 12px; border-radius: 15px; border: 1px solid #ddd; text-align: center;">
+        <button class="btn" onclick="checkPass()">🔓 unlock</button>
+        <div style="font-size: 1.5rem; margin-top: 15px;">☃️ 💝 🎅 🎁 🎄</div>
     </div>
 
     <div id="message-page" class="card hidden">
         <div style="font-size:50px">📩</div>
-        <h2 style="color:var(--primary-red)">ينور عيني</h2>
+        <h2 style="color:var(--primary-red); margin-top: 0;">ينور عيني</h2>
         <div class="letter-text">
             احلي حد هدخل معاه السنه الجديده ربنا يخليكي ليا
             يارب تكون سنه حلوه وهتبقا حلوه اصلا
             لاننا مع بعض وانا داخل السنه وانا معايا
             اغلي واكتر حد بحبه
+            أنت سبب فرحي انتي سبب ضحكتي انتي
+            سبب كل حاجه حلوه
             بحبك
             تعالي نشوف كام ميموري كده مع بعض
         </div>
@@ -109,7 +123,7 @@
             هتبقا احلي سنه بيكي 2026
         </div>
         <button class="btn" onclick="location.reload()">🎄 Restart Journey 🎁</button>
-        <p style="font-size: 0.8rem; margin-top: 10px; color: #888;">Merry Christmas 2026</p>
+        <p class="footer-text">🎅 Merry Christmas 2026 ☃️</p>
     </div>
 </div>
 
@@ -128,6 +142,8 @@
             document.getElementById('message-page').classList.remove('hidden');
             document.getElementById('music-btn').classList.remove('hidden');
             document.getElementById('bg-music').play();
+        } else {
+            alert("Wrong password! ❤️");
         }
     }
 
