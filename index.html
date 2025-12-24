@@ -6,94 +6,168 @@
     <title>Christmas 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Amiri&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-red: #b3000c; --bg-red: #7a0000; }
+        /* Base Styles matching the video aesthetic */
         body {
             margin: 0; padding: 0; font-family: 'Amiri', serif;
             background: linear-gradient(to bottom, #8b0000, #4a0000);
             color: #333; display: flex; justify-content: center;
             min-height: 100vh; overflow-x: hidden; direction: rtl;
         }
-        /* Top Sparkle Text */
-        .main-header { color: white; margin-top: 40px; font-size: 1.8rem; font-weight: bold; }
-        
-        .container { width: 90%; max-width: 400px; text-align: center; z-index: 15; }
-        
-        /* Card Styling to match image */
+
+        /* Top Lights Animation */
+        .lights {
+            position: fixed; top: 10px; width: 100%;
+            display: flex; justify-content: space-around; z-index: 20;
+        }
+        .light { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 10px white; }
+        .red { background: #ff0000; animation: blink 1s infinite; }
+        .green { background: #00ff00; animation: blink 1.2s infinite; }
+        .yellow { background: #ffff00; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .container { width: 90%; max-width: 400px; text-align: center; padding-top: 50px; z-index: 15; }
+
         .card {
-            background: rgba(255, 255, 255, 0.9); border-radius: 20px; padding: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 20px;
+            background: #fffafa; border-radius: 30px; padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); margin-bottom: 20px;
             animation: slideUp 0.6s ease-out;
         }
-        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .btn-restart {
-            background: #2d5a27; color: white; border: none; padding: 10px 25px;
-            border-radius: 50px; cursor: pointer; font-size: 1rem; margin-top: 10px;
+        /* Buttons matching the video UI */
+        .btn {
+            background: linear-gradient(to right, #b3000c, #7a0000);
+            color: white; border: none; padding: 12px; border-radius: 50px;
+            width: 90%; font-weight: bold; cursor: pointer; margin-top: 15px;
         }
-
         .red-pill-btn {
-            background: #e63946; color: white; border: none; padding: 15px 60px;
-            border-radius: 50px; font-size: 1.4rem; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4); margin-top: 20px;
+            background: #ff3b3b; color: white; border: none; padding: 15px 45px;
+            border-radius: 50px; font-size: 1.3rem; cursor: pointer; margin: 20px 0;
+            box-shadow: 0 0 20px rgba(255, 59, 59, 0.4);
         }
 
         .hidden { display: none; }
-        .letter-text { color: #5e0000; font-size: 1.2rem; font-weight: bold; white-space: pre-line; line-height: 1.8; }
-        
-        /* Snowflake backgrounds */
-        .snow-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        .letter-text { color: #5e0000; font-size: 1.15rem; line-height: 1.8; font-weight: bold; white-space: pre-line; }
+        .memory-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 10px; }
+        .memory-card img { width: 100%; border-radius: 15px; }
+
+        .year-badge { background: #d4a373; color: white; padding: 5px 25px; border-radius: 50px; display: inline-block; font-size: 1.2rem; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
+<div class="lights">
+    <div class="light red"></div><div class="light green"></div><div class="light yellow"></div>
+    <div class="light red"></div><div class="light green"></div><div class="light yellow"></div>
+</div>
+
+<audio id="bg-music" loop></audio>
+
 <div class="container">
-    <div id="main-page">
-        <div class="main-header">✨ Christmas 2026 ✨</div>
-        <div style="font-size: 40px; margin: 10px;">🎄</div>
-        <h2 style="color: white; font-style: italic; font-size: 2rem;">Our Beautiful Memories</h2>
+    <div id="login-page" class="card">
+        <div class="year-badge">2026</div>
+        <div style="font-size: 50px; margin: 10px 0;">🎄</div>
+        <h1 style="color:#b3000c; font-family: 'Dancing Script'; margin: 0;">Christmas</h1>
+        <p style="color: #666; margin: 5px 0;">enter password</p>
+        <input type="password" id="pass" placeholder="Password" style="width: 85%; padding: 12px; border-radius: 15px; border: 1px solid #ddd; text-align: center;">
+        <button class="btn" onclick="checkPass()">🔓 unlock</button>
+        <div style="font-size: 1.5rem; margin-top: 15px;">☃️ 💝 🎅 🎁 🎄</div>
+    </div>
 
-        <div class="card">
-            <p class="letter-text">الاغنية اللي بنحبها ❤️</p>
-        </div>
-        <div class="card">
-            <p class="letter-text">بحبكك</p>
-        </div>
-        <div class="card">
-            <p class="letter-text">فاكره اليوم ده</p>
-        </div>
+    <div id="message-page" class="card hidden">
+        <div style="font-size:50px">📩</div>
+        <h2 style="color:#b3000c; margin-top: 0;">ينور عيني</h2>
+        <div class="letter-text" id="intro-message"></div>
+        <button class="btn" onclick="showMemories()">✨ start journey</button>
+    </div>
 
-        <div style="margin: 40px 0;">
-            <p style="color: white; font-size: 1.3rem;">✨ في حاجة مهمة عايز أقولهالك ✨</p>
+    <div id="memories-feed" class="hidden">
+        <div style="color: white; margin-bottom: 20px;">
+            <div style="font-size: 1.8rem; font-weight: bold;">✨ Christmas 2026 ✨</div>
+            <div style="font-size: 40px; margin: 10px;">🎄</div>
+            <h2 style="font-style: italic;">Our Beautiful Memories</h2>
+        </div>
+        <div id="photos-container"></div>
+        <div style="margin: 30px 0;">
+            <p style="color: white; font-size: 1.2rem; font-weight: bold;">✨ في حاجة مهمة عايز أقولهالك ✨</p>
             <button class="red-pill-btn" onclick="showFinal()"> ❤️ دوس هنا ❤️ </button>
         </div>
     </div>
 
-    <div id="final-card" class="hidden">
-        <div style="margin-top: 50px; font-size: 40px;">🎄</div>
-        <h1 style="color: white; font-family: 'Dancing Script';">حبيبتي</h1>
-        
-        <div class="card">
-            <div class="letter-text">
-                احلي حد هدخل بيه السنه دي
-                ربنا يخليكي ليا يحبيبتي 💍
-                ومهما الدنيا تبعدنا هنفضل ديما سوا ❄️
-                انتي كل حاجه ليا 🌲
-                ومقدرش اني استغنا عنك 💕
-                هتبقا احلي سنه بيكي 2026
-            </div>
-        </div>
-        <button class="btn-restart" onclick="location.reload()">🎄 Restart Journey 🎁</button>
-        <p style="color: white; margin-top: 20px; opacity: 0.7;">🎅 Merry Christmas 2026 ☃️</p>
+    <div id="final-card" class="card hidden">
+        <div style="font-size:40px">🎄</div>
+        <h2 style="color:#b3000c">حبيبتي</h2>
+        <div class="letter-text" id="final-paragraph"></div>
+        <button class="btn" onclick="location.reload()">🎄 Restart Journey 🎁</button>
+        <p style="color: #888; margin-top: 20px;">🎅 Merry Christmas 2026 ☃️</p>
     </div>
 </div>
 
 <script>
+    /* ==========================================
+       EDIT EVERYTHING HERE
+       ========================================== */
+    const config = {
+        password: "love", // Change this to your secret word
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Background Music
+        
+        // Initial Message
+        introText: `احلي حد هدخل معاه السنه الجديده ربنا يخليكي ليا
+                    يارب تكون سنه حلوه وهتبقا حلوه اصلا
+                    لاننا مع بعض وانا داخل السنه وانا معايا
+                    اغلي واكتر حد بحبه
+                    أنت سبب فرحي انتي سبب ضحكتي انتي
+                    سبب كل حاجه حلوه
+                    بحبك
+                    تعالي نشوف كام ميموري كده مع بعض`,
+
+        // Your Memories List
+        memories: [
+            { image: "photo1.jpg", text: "الاغنية اللي بنحبها ❤️" },
+            { image: "photo2.jpg", text: "بحبكك" },
+            { image: "photo3.jpg", text: "فاكره اليوم ده" },
+            { image: "photo4.jpg", text: "حبيبتي" }
+        ],
+
+        // Final Ending Message
+        finalText: `احلي حد هدخل بيه السنه دي
+                    ربنا يخليكي ليا يحبيبتي 💍
+                    ومهما الدنيا تبعدنا هنفضل ديما سوا ❄️
+                    انتي كل حاجه ليا 🌲
+                    ومقدرش اني استغنا عنك 💕
+                    هتبقا احلي سنه بيكي 2026`
+    };
+
+    /* DO NOT EDIT BELOW THIS LINE */
+    document.getElementById('bg-music').src = config.audioUrl;
+    document.getElementById('intro-message').innerText = config.introText;
+    document.getElementById('final-paragraph').innerText = config.finalText;
+
+    function checkPass() {
+        if (document.getElementById('pass').value.toLowerCase() === config.password.toLowerCase()) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('message-page').classList.remove('hidden');
+            document.getElementById('bg-music').play();
+        } else { alert("كلمة السر خطأ ❤️"); }
+    }
+
+    function showMemories() {
+        document.getElementById('message-page').classList.add('hidden');
+        const container = document.getElementById('photos-container');
+        config.memories.forEach(m => {
+            const div = document.createElement('div');
+            div.className = 'memory-card';
+            div.innerHTML = `<img src="${m.image}"><p class="letter-text" style="font-size:1rem">${m.text}</p>`;
+            container.appendChild(div);
+        });
+        document.getElementById('memories-feed').classList.remove('hidden');
+    }
+
     function showFinal() {
-        document.getElementById('main-page').classList.add('hidden');
+        document.getElementById('memories-feed').classList.add('hidden');
         document.getElementById('final-card').classList.remove('hidden');
         window.scrollTo(0, 0);
     }
 </script>
-
 </body>
 </html>
