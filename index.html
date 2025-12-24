@@ -13,7 +13,6 @@
             color: #333; display: flex; justify-content: center;
             min-height: 100vh; overflow-x: hidden; direction: rtl;
         }
-        /* Top Lights */
         .lights {
             position: fixed; top: 10px; width: 100%;
             display: flex; justify-content: space-around; z-index: 20;
@@ -45,7 +44,7 @@
         .hidden { display: none; }
         .letter-text { color: #5e0000; font-size: 1.15rem; line-height: 1.8; font-weight: bold; white-space: pre-line; }
         .memory-card { background: white; border-radius: 20px; margin-bottom: 20px; padding: 10px; }
-        .memory-card img, .memory-card video { width: 100%; border-radius: 15px; display: block; }
+        .memory-card video { width: 100%; border-radius: 15px; display: block; }
 
         #music-btn {
             position: fixed; bottom: 20px; left: 20px; background: white;
@@ -76,7 +75,6 @@
         <p style="color: #666; margin: 5px 0;">enter password</p>
         <input type="password" id="pass" placeholder="Password" style="width: 85%; padding: 12px; border-radius: 15px; border: 1px solid #ddd; text-align: center;">
         <button class="btn" onclick="checkPass()">🔓 unlock</button>
-        <div style="font-size: 1.5rem; margin-top: 15px;">☃️ 💝 🎅 🎁 🎄</div>
     </div>
 
     <div id="message-page" class="card hidden">
@@ -96,8 +94,12 @@
     </div>
 
     <div id="memories-feed" class="hidden">
-        <div id="photos-container"></div>
-        
+        <div style="color: white; margin-bottom: 20px;">
+            <div style="font-size: 1.8rem; font-weight: bold;">✨ Christmas 2026 ✨</div>
+            <div style="font-size: 40px; margin: 10px;">🎄</div>
+            <h2 style="font-style: italic;">Our Beautiful Memories</h2>
+        </div>
+        <div id="video-container"></div>
         <div style="margin: 30px 0;">
             <p style="color: white; font-size: 1.2rem; font-weight: bold;">✨ في حاجة مهمة عايز أقولهالك ✨</p>
             <button class="red-round-btn" onclick="showFinalMessage()"> ❤️ دوس هنا ❤️ </button>
@@ -116,20 +118,18 @@
             هتبقا احلي سنه بيكي 2026
         </div>
         <button class="btn" onclick="location.reload()">🎄 Restart Journey 🎁</button>
-        <p style="color: #888; font-size: 0.8rem; margin-top: 10px;">🎅 Merry Christmas 2026 ☃️</p>
     </div>
 </div>
 
 <script>
-    // EDIT YOUR PASSWORD, MUSIC, AND FILES HERE
     const config = {
         password: "love",
         audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
         memories: [
-            { file: "c:\Users\moham\Desktop\WhatsApp Video 2025-12-24 at 7.05.54 PM.mp4", text: "الاغنية اللي بنحبها ❤️" }, // Works for .mp4 or .mov
-            { file: "photo2.jpg", text: "بحبكك" },
-            { file: "photo3.jpg", text: "فاكره اليوم ده" },
-            { file: "video2.mov", text: "ربنا يخليكي ليا" }
+            { video: "F4B7EA43-2BEE-4EF5-BFD8-66E12DBDBC75.mov", text: "الأغنية اللي بنحبها ❤️" },
+            { video: "BB81044C-591B-47E2-BD26-56E8487DC5CE.mov", text: "بحبكك" },
+            { video: "AFDF0E28-F696-48CD-ADA0-0B2CD2254763.mov", text: "فاكرة اليوم ده" },
+            { video: "84624133-74b0-49fd-8efc-f78c546588df.mov", text: "أحلى ذكرى سوا 🎈" }
         ]
     };
 
@@ -138,28 +138,25 @@
             document.getElementById('login-page').style.display = 'none';
             document.getElementById('message-page').classList.remove('hidden');
             document.getElementById('music-btn').classList.remove('hidden');
-            document.getElementById('bg-music').src = config.audioUrl;
             document.getElementById('bg-music').play();
         }
     }
 
     function showMemories() {
         document.getElementById('message-page').classList.add('hidden');
-        const container = document.getElementById('photos-container');
+        const container = document.getElementById('video-container');
         container.innerHTML = "";
         
         config.memories.forEach(m => {
             const div = document.createElement('div');
             div.className = 'memory-card';
-            const isVideo = m.file.toLowerCase().endsWith('.mp4') || m.file.toLowerCase().endsWith('.mov');
-            
-            if (isVideo) {
-                div.innerHTML = `<video controls><source src="${m.file}" type="video/mp4"></video>
-                                 <p class="letter-text" style="font-size:1rem; padding:10px;">${m.text}</p>`;
-            } else {
-                div.innerHTML = `<img src="${m.file}">
-                                 <p class="letter-text" style="font-size:1rem; padding:10px;">${m.text}</p>`;
-            }
+            div.innerHTML = `
+                <video controls playsinline>
+                    <source src="${m.video}" type="video/quicktime">
+                    <source src="${m.video}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="letter-text" style="font-size:1rem; padding:10px;">${m.text}</p>`;
             container.appendChild(div);
         });
         document.getElementById('memories-feed').classList.remove('hidden');
